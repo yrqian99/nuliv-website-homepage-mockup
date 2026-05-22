@@ -37,6 +37,22 @@
     --side-pad: 40px;
     --side-pad-right: 136px;
 
+    /* Spacing tokens — 8px base rhythm */
+    --space-tight: 8px;          /* micro-clusters (sidebar num ↔ label) */
+    --space-text: 16px;          /* tight gap between related text */
+    --space-element: 32px;       /* between major elements within a block */
+    --space-block-bottom: 56px;  /* below intro headline before its grid */
+    --space-block-gap: 64px;     /* between content block and CTA */
+    --space-section-y: 96px;     /* major section vertical padding */
+
+    /* Spacing tokens — 8px rhythm */
+    --space-tight: 8px;       /* micro-clusters: sidebar num ↔ label */
+    --space-text: 16px;       /* tight related text: headline ↔ intro */
+    --space-element: 32px;    /* between major elements in a block */
+    --space-block-bottom: 56px;  /* below intro headline block, before content */
+    --space-block-gap: 64px;     /* content → CTA, between layout blocks */
+    --space-section-y: 96px;     /* vertical section padding */
+
     /* Animation tokens — locked vocabulary */
     --ease-out-cubic: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
@@ -171,7 +187,7 @@
 
   /* SECTION SCAFFOLD */
   .section {
-    padding: 96px var(--side-pad-right) 96px var(--side-pad);
+    padding: var(--space-section-y) var(--side-pad-right) var(--space-section-y) var(--side-pad);
     border-bottom: 1px solid rgba(244, 241, 232, 0.1);
   }
 
@@ -281,7 +297,7 @@
     font-size: 15px;
     line-height: 1.6;
     color: rgba(244, 241, 232, 0.65);
-    margin-top: 18px;
+    margin-top: var(--space-text);
     max-width: 540px;
   }
 
@@ -359,7 +375,7 @@
 
   @keyframes rec { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-  .hero__inner { position: relative; z-index: 3; padding: 96px var(--side-pad-right) 80px var(--side-pad); }
+  .hero__inner { position: relative; z-index: 3; padding: var(--space-section-y) var(--side-pad-right) var(--space-section-y) var(--side-pad); }
 
   .hero__sidebar {
     border-left: 1px solid rgba(244, 241, 232, 0.18);
@@ -387,7 +403,7 @@
     font-size: 64px;
     line-height: 1.02;
     letter-spacing: -0.03em;
-    margin: 0 0 36px 0;
+    margin: 0 0 var(--space-element) 0;
     max-width: 920px;
   }
 
@@ -465,13 +481,16 @@
   .section--light .link-underline:hover { border-bottom-color: var(--brass-editorial); color: var(--brass-editorial); }
 
   /* LOGO STRIP */
-  .logos { padding: 56px var(--side-pad-right) 56px var(--side-pad); border-bottom: 1px solid rgba(244, 241, 232, 0.1); }
+  .logos {
+    padding: 56px var(--side-pad-right) 56px var(--side-pad);
+    border-bottom: 1px solid rgba(244, 241, 232, 0.1);
+  }
 
   .logos__layout {
     display: grid;
     grid-template-columns: var(--gutter) 1fr;
     gap: 40px;
-    align-items: center;
+    align-items: start;
   }
 
   .logos__grid {
@@ -483,17 +502,31 @@
   }
 
   .logo-mark {
-    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgba(244, 241, 232, 0.55);
+    opacity: 0.7;
+    transition: opacity var(--duration-short) ease-out;
   }
 
-  .logo-mark--serif { font-family: var(--serif); font-size: 17px; font-style: italic; letter-spacing: 0.02em; }
-  .logo-mark--sans-bold { font-family: var(--sans); font-size: 14px; font-weight: 600; letter-spacing: 0.18em; }
-  .logo-mark--sans { font-family: var(--sans); font-size: 14px; font-weight: 500; letter-spacing: 0.04em; }
-  .logo-mark--placeholder { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(244, 241, 232, 0.35); }
+  .logo-mark:hover { opacity: 1; }
+
+  .logo-mark img,
+  .logo-mark svg {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+  }
+
+  /* Per-logo height tuning for optical balance */
+  /* Heights tuned so each logo's letterforms or symbol-mass reads with similar weight */
+  .logo-mark--ghost img { height: 56px; }
+  .logo-mark--gaiaherbs img { height: 64px; }
+  .logo-mark--lemme img { height: 36px; max-width: 80%; }
+  .logo-mark--buckedup img { height: 52px; max-width: 80%; }
+  .logo-mark--animal img { height: 36px; }
+  .logo-mark--myprotein img { height: 60px; }
 
   /* STATS (LIGHT) */
   .stats__grid {
@@ -503,7 +536,7 @@
   }
 
   .stat-cell {
-    padding: 36px 32px;
+    padding: 32px 32px;
     border-right: 1px solid rgba(24, 45, 9, 0.15);
     border-bottom: 1px solid rgba(24, 45, 9, 0.15);
   }
@@ -541,12 +574,12 @@
 
   /* IMAGE BREAK (PARALLAX) */
   .image-break {
-    height: 320px;
+    height: 240px;
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: end;
-    padding: 28px var(--side-pad-right) 28px var(--side-pad);
+    padding: 32px var(--side-pad-right) 32px var(--side-pad);
     border-bottom: 1px solid rgba(244, 241, 232, 0.1);
   }
 
@@ -777,19 +810,19 @@
     justify-content: space-between;
   }
 
-  .why-us__cta-wrap { margin-top: 40px; }
+  .why-us__cta-wrap { margin-top: var(--space-block-gap); }
 
   /* TESTIMONIALS (LIGHT) */
   .testimonials__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
 
-  .testimonial { border-top: 1px solid rgba(24, 45, 9, 0.3); padding-top: 28px; }
+  .testimonial { border-top: 1px solid rgba(24, 45, 9, 0.3); padding-top: 24px; }
 
   .testimonial__quote-mark {
     font-family: var(--serif);
     font-size: 36px;
     line-height: 1;
     color: var(--brass-editorial);
-    margin-bottom: 12px;
+    margin-bottom: var(--space-text);
     font-style: italic;
   }
 
@@ -798,7 +831,7 @@
     font-size: 18px;
     line-height: 1.45;
     color: var(--green-primary);
-    margin: 0 0 28px 0;
+    margin: 0 0 24px 0;
     font-weight: 400;
     letter-spacing: -0.005em;
   }
@@ -818,13 +851,13 @@
     text-transform: uppercase;
   }
 
-  .testimonials__cta { margin-top: 48px; }
+  .testimonials__cta { margin-top: var(--space-block-gap); }
 
   /* ORIGIN (DARK) */
   .origin__layout {
     display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: 56px;
+    grid-template-columns: 4fr 8fr;
+    gap: 48px;
     align-items: center;
   }
 
@@ -888,13 +921,14 @@
 
   .pull-quote {
     font-family: var(--serif);
-    font-size: 32px;
-    line-height: 1.25;
+    font-size: 28px;
+    line-height: 1.3;
     font-weight: 400;
     color: var(--off-white);
     font-style: italic;
-    margin: 0 0 32px 0;
+    margin: 0 0 24px 0;
     letter-spacing: -0.015em;
+    max-width: 620px;
   }
 
   .attribution__name {
@@ -910,7 +944,7 @@
     color: rgba(244, 241, 232, 0.55);
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-bottom: 36px;
+    margin-bottom: var(--space-block-gap);
   }
 
   /* INGREDIENTS (LIGHT) */
@@ -923,47 +957,66 @@
 
   .ingredients__see-all { white-space: nowrap; padding-bottom: 8px; }
 
-  .ingredients__cta { margin-top: 48px; }
+  .ingredients__cta { margin-top: var(--space-block-gap); }
 
   .ingredients__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border-top: 1px solid rgba(24, 45, 9, 0.15);
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 48px;
+    row-gap: 64px;
   }
 
   .ingredient {
-    padding: 32px 28px;
-    border-right: 1px solid rgba(24, 45, 9, 0.15);
-    border-bottom: 1px solid rgba(24, 45, 9, 0.15);
+    padding: 24px 0 0 0;
+    border-top: 1px solid rgba(24, 45, 9, 0.2);
     cursor: pointer;
-    transition: background var(--duration-medium) var(--ease-out-cubic);
+    position: relative;
   }
 
-  .ingredient:hover { background: rgba(24, 45, 9, 0.04); }
-  .ingredient:hover .ingredient__image { transform: scale(1.02); }
-
-  /* first card aligns with section gutter — no left padding */
-  .ingredient:first-child { padding-left: 0; }
-
-  /* last card aligns with right edge — no right padding, no border */
-  .ingredient:last-child {
-    padding-right: 0;
-    border-right: none;
+  .ingredient__inner {
+    /* no horizontal padding — whitespace via grid column-gap handles spacing */
   }
 
   .ingredient__image {
     aspect-ratio: 4/3;
+    width: 100%;
     margin-bottom: 24px;
     position: relative;
     overflow: hidden;
     border: 1px solid rgba(24, 45, 9, 0.1);
-    transition: transform var(--duration-medium) var(--ease-out-cubic);
+  }
+
+  /* hover state — name shifts to brass, arrow reveals */
+  .ingredient__name {
+    transition: color var(--duration-short) ease-out;
+  }
+
+  .ingredient__name::after {
+    content: '→';
+    display: inline-block;
+    margin-left: 8px;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity var(--duration-short) ease-out,
+                transform var(--duration-short) ease-out;
+    color: var(--brass-editorial);
+  }
+
+  .ingredient:hover .ingredient__name {
+    color: var(--brass-editorial);
+  }
+
+  .ingredient:hover .ingredient__name::after {
+    opacity: 1;
+    transform: translateX(0);
   }
 
   .ingredient:nth-child(1) .ingredient__image { background: radial-gradient(circle at 35% 35%, #B8862A 0%, #6B4F18 50%, #2E5016 100%); }
   .ingredient:nth-child(2) .ingredient__image { background: radial-gradient(circle at 65% 30%, #97F256 0%, #467525 45%, #182D09 100%); }
   .ingredient:nth-child(3) .ingredient__image { background: radial-gradient(circle at 50% 60%, #E8B547 0%, #B8862A 50%, #2E5016 100%); }
   .ingredient:nth-child(4) .ingredient__image { background: radial-gradient(circle at 70% 70%, #5C4520 0%, #2E5016 60%, #081402 100%); }
+  .ingredient:nth-child(5) .ingredient__image { background: radial-gradient(circle at 40% 50%, #8FA847 0%, #5C7028 45%, #2E5016 100%); }
+  .ingredient:nth-child(6) .ingredient__image { background: radial-gradient(circle at 60% 40%, #C8A560 0%, #7A5A28 50%, #2E3D14 100%); }
 
   .ingredient__image::before {
     content: '';
@@ -1006,58 +1059,54 @@
 
   .ingredient__desc { font-size: 13px; line-height: 1.55; color: rgba(24, 45, 9, 0.75); margin: 0; }
 
-  /* FOOTER */
-  .footer { background: var(--green-darkest); padding: 80px var(--side-pad-right) 40px var(--side-pad); }
+  /* CLOSING SECTION — promoted from footer */
+  .closing { background: var(--green-deeper); }
 
-  .footer-cta__layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: end;
-    padding-bottom: 56px;
-    border-bottom: 1px solid rgba(244, 241, 232, 0.12);
-    margin-bottom: 64px;
+  .closing__title {
+    font-size: 56px;
+    margin: 0 0 var(--space-element) 0;
+    max-width: 720px;
   }
 
-  .footer-cta__eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(244, 241, 232, 0.45);
-    margin-bottom: 20px;
+  .closing__sub {
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(244, 241, 232, 0.78);
+    max-width: 580px;
+    margin: 0 0 var(--space-block-gap) 0;
   }
 
-  .footer-cta__title {
-    font-size: 44px;
-    line-height: 1.0;
-    font-weight: 600;
-    color: var(--off-white);
-    margin: 0;
-    letter-spacing: -0.03em;
-    max-width: 480px;
+  .closing__ctas {
+    display: flex;
+    gap: 16px;
+    align-items: center;
   }
 
-  .footer-cta__buttons { display: flex; gap: 14px; align-items: center; justify-content: end; }
+  /* FOOTER — pure navigation, no CTA */
+  .footer {
+    background: var(--green-darkest);
+    padding: 64px var(--side-pad-right) 40px var(--side-pad);
+  }
 
   .footer__cols {
     display: grid;
     grid-template-columns: 2.5fr 1fr 1fr 1fr;
     gap: 48px;
-    margin-bottom: 56px;
+    margin-bottom: var(--space-block-bottom);
   }
 
   .footer__brand-name {
     height: 32px;
     width: auto;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .footer__tagline {
     font-family: var(--serif);
     font-size: 14px;
     color: rgba(244, 241, 232, 0.65);
-    margin-bottom: 28px;
+    margin-bottom: var(--space-element);
     font-style: italic;
     letter-spacing: 0.01em;
   }
@@ -1070,20 +1119,12 @@
     max-width: 380px;
   }
 
-  .footer__b-corp {
-    height: 64px;
-    width: auto;
-    display: block;
-    margin-top: 32px;
-    opacity: 0.85;
-  }
-
   .footer__col-head {
     font-size: 10px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: rgba(244, 241, 232, 0.4);
-    margin-bottom: 18px;
+    margin-bottom: var(--space-text);
   }
 
   .footer__col-list {
@@ -1097,7 +1138,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 28px;
+    padding-top: var(--space-element);
     border-top: 1px solid rgba(244, 241, 232, 0.1);
   }
 
@@ -1115,12 +1156,13 @@
 
   .footer__legal span:hover { color: var(--off-white); }
 
-  .reason__title em, .footer-cta__title em { font-family: var(--serif); font-style: italic; color: var(--brass-editorial); font-weight: 400; letter-spacing: -0.025em; }
+  .reason__title em, .closing__title em { font-family: var(--serif); font-style: italic; color: var(--brass-editorial); font-weight: 400; letter-spacing: -0.025em; }
 
   @media (max-width: 1280px) {
     :root { --gutter: 72px; --side-pad-right: 112px; }
     .hero h1 { font-size: 52px; }
-    .section-title, .footer-cta__title { font-size: 36px; }
+    .section-title { font-size: 36px; }
+    .closing__title { font-size: 44px; }
   }
 </style>
 </head>
@@ -1188,19 +1230,31 @@
         <div class="eyebrow__label">Trusted by the brands your customers already love</div>
       </div>
       <div class="logos__grid reveal" data-delay="2">
-        <div class="logo-mark logo-mark--serif">Gaia Herbs</div>
-        <div class="logo-mark logo-mark--sans-bold">GHOST</div>
-        <div class="logo-mark logo-mark--sans">NutraBio</div>
-        <div class="logo-mark logo-mark--placeholder">[ Logo ]</div>
-        <div class="logo-mark logo-mark--placeholder">[ Logo ]</div>
-        <div class="logo-mark logo-mark--placeholder">[ Logo ]</div>
+        <div class="logo-mark logo-mark--ghost">
+          <img src="logos/ghost.svg" alt="GHOST">
+        </div>
+        <div class="logo-mark logo-mark--gaiaherbs">
+          <img src="logos/gaiaherbs.svg" alt="Gaia Herbs">
+        </div>
+        <div class="logo-mark logo-mark--lemme">
+          <img src="logos/lemme.svg" alt="Lemme">
+        </div>
+        <div class="logo-mark logo-mark--buckedup">
+          <img src="logos/buckedup.svg" alt="Bucked Up">
+        </div>
+        <div class="logo-mark logo-mark--animal">
+          <img src="logos/animal.svg" alt="Animal">
+        </div>
+        <div class="logo-mark logo-mark--myprotein">
+          <img src="logos/myprotein.svg" alt="Myprotein">
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <section class="section section--light" data-observe>
-  <div class="section__layout" style="margin-bottom: 64px;">
+  <div class="section__layout" style="margin-bottom: var(--space-block-bottom);">
     <div class="sidebar reveal" data-delay="1">
       <div class="sidebar__num">03</div>
       <div class="sidebar__label">Proof</div>
@@ -1229,9 +1283,9 @@
         <div class="stat-cell__desc">Published across our ingredient portfolio.</div>
       </div>
       <div class="stat-cell">
-        <div class="stat-cell__num"><span class="stat-num" data-target="18">0</span></div>
-        <div class="stat-cell__label">Ingredients</div>
-        <div class="stat-cell__desc">Across our core and mushroom range.</div>
+        <div class="stat-cell__num">3</span><sup>+</sup></div>
+        <div class="stat-cell__label">Billion Servings</div>
+        <div class="stat-cell__desc">Sold across our portfolio and counting.</div>
       </div>
       <div class="stat-cell">
         <div class="stat-cell__num"><span class="stat-num" data-target="300">0</span><sup>+</sup></div>
@@ -1244,14 +1298,14 @@
         <div class="stat-cell__desc">For some of our most clinically studied ingredients.</div>
       </div>
       <div class="stat-cell">
-        <div class="stat-cell__num">1<sup>st</sup></div>
-        <div class="stat-cell__label">Patent</div>
-        <div class="stat-cell__desc">For Cordyceps sinensis via liquid fermentation.</div>
+        <div class="stat-cell__num"><span class="stat-num" data-target="45">0</span></div>
+        <div class="stat-cell__label">Countries</div>
+        <div class="stat-cell__desc">Using our ingredients worldwide.</div>
       </div>
     </div>
   </div>
 
-  <div class="section__layout" style="margin-top: 56px;">
+  <div class="section__layout" style="margin-top: var(--space-block-gap);">
     <div></div>
     <div class="reveal" data-delay="5">
       <span class="link-underline">Explore the published research →</span>
@@ -1289,7 +1343,7 @@
           <div class="eyebrow__rule"></div>
           <div class="eyebrow__label">Five reasons</div>
         </div>
-        <h2 class="section-title reveal" data-delay="3" style="margin-bottom: 40px;">Why the best formulators <em class="italic-emphasis">keep coming&nbsp;back</em>.</h2>
+        <h2 class="section-title reveal" data-delay="3" style="margin-bottom: var(--space-element);">Why the best formulators <em class="italic-emphasis">keep coming&nbsp;back</em>.</h2>
         <div class="why-us__accordion reveal" data-delay="4">
           <div class="accordion-item is-open">
             <button class="accordion-header" aria-expanded="true">
@@ -1361,7 +1415,7 @@
 </section>
 
 <section class="section section--light" data-observe>
-  <div class="section__layout" style="margin-bottom: 56px;">
+  <div class="section__layout" style="margin-bottom: var(--space-block-bottom);">
     <div class="sidebar reveal" data-delay="1">
       <div class="sidebar__num">05</div>
       <div class="sidebar__label">Voices</div>
@@ -1419,7 +1473,7 @@
           <img src="plate-003-founder.png" alt="Plate 003 — Michael C. Wang">
           <div class="portrait__caption">
             <span>— Plate 003</span>
-            <span>Michael C. Wang</span>
+            <span>Michael Wang and Austin Wang</span>
           </div>
         </div>
         <div>
@@ -1440,7 +1494,7 @@
 </section>
 
 <section class="section section--light" data-observe>
-  <div class="section__layout" style="margin-bottom: 56px;">
+  <div class="section__layout" style="margin-bottom: var(--space-block-bottom);">
     <div class="sidebar reveal" data-delay="1">
       <div class="sidebar__num">07</div>
       <div class="sidebar__label">Portfolio</div>
@@ -1460,36 +1514,64 @@
     <div></div>
     <div class="ingredients__grid">
       <div class="ingredient reveal" data-delay="3">
-        <div class="ingredient__image">
-          <div class="ingredient__image-label">[ AstraGin® ]</div>
+        <div class="ingredient__inner">
+          <div class="ingredient__image">
+            <div class="ingredient__image-label">[ AstraGin® ]</div>
+          </div>
+          <div class="ingredient__category">N° 01 — Absorption</div>
+          <h3 class="ingredient__name">AstraGin<sup>®</sup></h3>
+          <p class="ingredient__desc">Your formula absorbs more. Period.</p>
         </div>
-        <div class="ingredient__category">N° 01 — Absorption</div>
-        <h3 class="ingredient__name">AstraGin<sup>®</sup></h3>
-        <p class="ingredient__desc">Your formula absorbs more. Period.</p>
       </div>
       <div class="ingredient reveal" data-delay="4">
-        <div class="ingredient__image">
-          <div class="ingredient__image-label">[ Senactiv® ]</div>
+        <div class="ingredient__inner">
+          <div class="ingredient__image">
+            <div class="ingredient__image-label">[ Senactiv® ]</div>
+          </div>
+          <div class="ingredient__category">N° 02 — Performance</div>
+          <h3 class="ingredient__name">Senactiv<sup>®</sup></h3>
+          <p class="ingredient__desc">More muscle output. Faster recovery. Greater endurance.</p>
         </div>
-        <div class="ingredient__category">N° 02 — Performance</div>
-        <h3 class="ingredient__name">Senactiv<sup>®</sup></h3>
-        <p class="ingredient__desc">More muscle output. Faster recovery. Greater endurance.</p>
       </div>
       <div class="ingredient reveal" data-delay="5">
-        <div class="ingredient__image">
-          <div class="ingredient__image-label">[ Astrion® ]</div>
+        <div class="ingredient__inner">
+          <div class="ingredient__image">
+            <div class="ingredient__image-label">[ Astrion® ]</div>
+          </div>
+          <div class="ingredient__category">N° 03 — Beauty</div>
+          <h3 class="ingredient__name">Astrion<sup>®</sup></h3>
+          <p class="ingredient__desc">More collagen. Smoother skin. Real glow.</p>
         </div>
-        <div class="ingredient__category">N° 03 — Beauty</div>
-        <h3 class="ingredient__name">Astrion<sup>®</sup></h3>
-        <p class="ingredient__desc">More collagen. Smoother skin. Real glow.</p>
       </div>
       <div class="ingredient reveal" data-delay="6">
-        <div class="ingredient__image">
-          <div class="ingredient__image-label">[ CordycepsPrime ]</div>
+        <div class="ingredient__inner">
+          <div class="ingredient__image">
+            <div class="ingredient__image-label">[ CordycepsPrime ]</div>
+          </div>
+          <div class="ingredient__category">N° 04 — Heritage</div>
+          <h3 class="ingredient__name">CordycepsPrime</h3>
+          <p class="ingredient__desc">Where NuLiv began. Still one of the best things we make.</p>
         </div>
-        <div class="ingredient__category">N° 04 — Heritage</div>
-        <h3 class="ingredient__name">CordycepsPrime</h3>
-        <p class="ingredient__desc">Where NuLiv began. Still one of the best things we make.</p>
+      </div>
+      <div class="ingredient reveal" data-delay="6">
+        <div class="ingredient__inner">
+          <div class="ingredient__image">
+            <div class="ingredient__image-label">[ InnoSlim® ]</div>
+          </div>
+          <div class="ingredient__category">N° 05 — Metabolic</div>
+          <h3 class="ingredient__name">InnoSlim<sup>®</sup></h3>
+          <p class="ingredient__desc">Metabolic support that works the way your body does.</p>
+        </div>
+      </div>
+      <div class="ingredient reveal" data-delay="6">
+        <div class="ingredient__inner">
+          <div class="ingredient__image">
+            <div class="ingredient__image-label">[ FungIQ® ]</div>
+          </div>
+          <div class="ingredient__category">N° 06 — Cognitive</div>
+          <h3 class="ingredient__name">FungIQ<sup>®</sup></h3>
+          <p class="ingredient__desc">Brain energy without the burnout.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1502,23 +1584,30 @@
   </div>
 </section>
 
-<footer class="footer" data-observe>
-  <div class="section__layout" style="margin-bottom: 0;">
-    <div></div>
+<!-- ===== CLOSING SECTION ===== -->
+<section class="section closing" data-observe>
+  <div class="section__layout">
+    <div class="sidebar reveal" data-delay="1">
+      <div class="sidebar__num">08</div>
+      <div class="sidebar__label">Begin</div>
+    </div>
     <div>
-      <div class="footer-cta__layout">
-        <div class="reveal" data-delay="1">
-          <div class="footer-cta__eyebrow">Ready to formulate something better?</div>
-          <h2 class="footer-cta__title">Let's start with <em>a&nbsp;sample</em>.</h2>
-        </div>
-        <div class="footer-cta__buttons reveal" data-delay="2">
-          <span class="btn btn--primary">Request a Sample →</span>
-          <span class="btn btn--secondary">Talk to Our Team →</span>
-        </div>
+      <div class="eyebrow reveal" data-delay="1">
+        <div class="eyebrow__rule"></div>
+        <div class="eyebrow__label">Ready to formulate something better?</div>
+      </div>
+      <h2 class="closing__title reveal" data-delay="2">Let's start with <em>a&nbsp;sample</em>.</h2>
+      <p class="closing__sub reveal" data-delay="3">Sample requests are how most of our best partnerships start. Tell us what you're building, which ingredient you're interested in, and we'll sort the rest.</p>
+      <div class="closing__ctas reveal" data-delay="4">
+        <span class="btn btn--primary">Request a Sample →</span>
+        <span class="btn btn--secondary">Talk to Our Team →</span>
       </div>
     </div>
   </div>
+</section>
 
+<!-- ===== FOOTER ===== -->
+<footer class="footer" data-observe>
   <div class="section__layout">
     <div></div>
     <div>
@@ -1527,7 +1616,6 @@
           <img class="footer__brand-name" src="NuLiv-logo-white-green.png" alt="NuLiv Science">
           <div class="footer__tagline">Where ancient wisdom meets modern science.</div>
           <p class="footer__boilerplate">A Certified B Corp combining the heritage of Traditional Chinese Medicine with scientific validation to deliver high-quality plant-based ingredients for science-driven formulas.</p>
-          <img class="footer__b-corp" src="b_corp_logo.webp" alt="Certified B Corporation">
         </div>
         <div>
           <div class="footer__col-head">Explore</div>
